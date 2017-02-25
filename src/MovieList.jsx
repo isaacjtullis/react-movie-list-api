@@ -1,14 +1,17 @@
 import React from 'react';
 import Movie from './Movie.jsx';
 
+
 class MovieList extends React.Component{
   constructor(props){
     super(props)
     this.state={
-      selectedMovie: null
+      selectedMovie: null,
+      search: ''
     };
 
     this.handleClick = this.handleClick.bind(this)
+    this.updateSearch = this.updateSearch.bind(this)
   }
 
   handleClick(id){
@@ -24,8 +27,16 @@ class MovieList extends React.Component{
     }
   }
 
+  updateSearch(event){
+    this.setState({search: event.target.value.substr(0, 20)})
+  }
+
   render(){
-    let movies = this.props.movies.map(movie=>{
+    let filteredMovies = this.props.movies.filter((movie)=>{
+      return movie.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+    });
+
+    let movies = filteredMovies.map(movie=>{
       let onMovieClick = () => this.handleClick(movie.id);
 
       let selected;
@@ -48,6 +59,11 @@ class MovieList extends React.Component{
     })
     return(
       <div className="Row">
+        <input
+          type="text"
+          value={this.state.search}
+          onChange={this.updateSearch}
+        />
         {movies}
       </div>
     )

@@ -1,26 +1,42 @@
 import React, {Component} from 'react';
 import api from './test/api.jsx';
 import MovieList from './MovieList.jsx'
+import {Pagination} from 'react-bootstrap';
+
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
       movies: [],
-      MovieName: ""
+      MovieName: "",
+      currentPageNumber: 1,
+      totalItems: 1,
+      itemsPerPage: 10
     }
+    this.handleSelect = this.handleSelect.bind(this)
   }
 
-  componentWillMount(){
-    api.getMovies().then((res)=>{
+  getMoviePosts(pageNumber){
+    api.getMovies(pageNumber).then((res)=>{
       this.setState({
         movies: res.results,
-        movieName: res.results[0].title
+        currentPageNumber: res.currentPageNumber,
+        totalItems: res.totalItems,
+        itemsPerPage: res.itemsPerPage
       })
     });
   }
+  componentWillMount(){
+    this.getMoviePosts(1)
+  }
+
+  handleSelect(number){
+    this.setState({currentPageNumber: number});
+  }
 
   render() {
+    let totalPages = Math.ceil(this.state.totalItems / this.state.itemsPerPage);
     return (
       <div className="Row">
         <div className="banner">
