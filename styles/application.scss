@@ -1,2 +1,12 @@
 // This is the top-level scss file. Import all other files in here.
 @import 'home';
+
+.banner {
+  font-size: 32px;
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-top: 40px;
+  padding: 25px;
+  text-align: center;
+  background-color: #E0F0F1;
+}
