@@ -17,7 +17,7 @@ const Movie = (props) => {
   }
 
   return(
-    <div className="Row">
+    <div className="row">
       <div className="col-md-12" id={props.id} onClick={props.handleClick}><h1>{props.title}</h1></div>
         <div className="movie-description">
           {showMovieDetails(props)}
