@@ -1,7 +1,6 @@
 import React from 'react';
 import Movie from './Movie.jsx';
 
-
 class MovieList extends React.Component{
   constructor(props){
     super(props)
@@ -35,10 +34,10 @@ class MovieList extends React.Component{
     let filteredMovies = this.props.movies.filter((movie)=>{
       return movie.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
     });
+    let searchTextDescription = "Search Here!"
 
     let movies = filteredMovies.map(movie=>{
       let onMovieClick = () => this.handleClick(movie.id);
-
       let selected;
       if(movie.id === this.state.selectedMovie){
         selected = true
@@ -59,11 +58,14 @@ class MovieList extends React.Component{
     })
     return(
       <div className="Row">
-        <input
-          type="text"
-          value={this.state.search}
-          onChange={this.updateSearch}
-        />
+        <div className="search-feature">
+          <h3>{searchTextDescription}</h3>
+          <input
+            type="text"
+            value={this.state.search}
+            onChange={this.updateSearch}
+          />
+        </div>
         {movies}
       </div>
     )
